@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<title>📚 Grade 9 Advanced Quiz</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+}
+.container{
+    background: rgba(0,0,0,0.85);
+    padding: 20px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 750px;
+    border-radius: 15px;
+}
+button{
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+button:hover{
+    background: yellow;
+    color: black;
+}
+#nextBtn{
+    display: none;
+    background: orange;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="main">
+    <h2>📚 විෂය තෝරන්න</h2>
+    <div id="subjects"></div>
+</div>
+
+<script>
+
+const data = {
+
+"සිංහල":[
+{q:"'ගුරුවරයා පන්තියේ ඉගැන්වයි' වාක්‍යයේ ක්‍රියා පදය කුමක්ද?",answers:["ගුරුවරයා","පන්තියේ","ඉගැන්වයි","වාක්‍යයේ"],correct:2,ex:"ක්‍රියාව = ඉගැන්වයි"},
+{q:"'සුන්දර මල්' හි 'සුන්දර' කුමක්ද?",answers:["නාම","ක්‍රියා","විශේෂණ","සර්වනාම"],correct:2,ex:"විස්තර කරන වචනයක්"},
+{q:"සර්වනාමයක් තෝරන්න",answers:["පොත","ඔහු","දුවයි","ලස්සන"],correct:1,ex:"ඔහු"},
+{q:"'මම පාසලට යමි' හි ක්‍රියා පදය?",answers:["මම","පාසලට","යමි","none"],correct:2,ex:"යමි"},
+{q:"'කුඩා' යනු?",answers:["නාම","විශේෂණ","ක්‍රියා","සර්වනාම"],correct:1,ex:"විශේෂණ"}
+],
+
+"ගණිතය":[
+{q:"x + 5 = 12 නම් x?",answers:["5","6","7","8"],correct:2,ex:"12-5=7"},
+{q:"3,6,9... මාලාවේ 6වන සංඛ්‍යාව?",answers:["15","18","21","24"],correct:1,ex:"18"},
+{q:"වර්ගයක පර්යන්තය 24cm → පැත්ත?",answers:["4","5","6","8"],correct:2,ex:"24÷4=6"},
+{q:"10% of 200?",answers:["10","20","30","40"],correct:1,ex:"20"},
+{q:"5²=?",answers:["10","20","25","30"],correct:2,ex:"25"}
+],
+
+"විද්‍යාව":[
+{q:"ශාක ආහාර නිපදවන්නේ?",answers:["ශ्वාසනය","ප්‍රकाश සංස්ලේෂණය","ජීර්ණය","සංසරණය"],correct:1,ex:"Photosynthesis"},
+{q:"ඔක්සිජන් ගෙන යන්නේ?",answers:["ප්ලාස්මා","RBC","WBC","Platelets"],correct:1,ex:"RBC"},
+{q:"ශබ්දය ගමන් කරන්නේ?",answers:["ශූන්‍යයේ","මාධ්‍යයකින්","ආලෝකයෙන්","විදුලියෙන්"],correct:1,ex:"Medium එකක්"},
+{q:"පෘථිවිය කුමක්ද?",answers:["නක්ෂත්‍ර","ග්‍රහලෝක","උපග්‍රහ","කොමට්"],correct:1,ex:"Planet"},
+{q:"ජලය H2O ලෙස හැඳින්වෙන්නේ ඇයි?",answers:["2H +1O","1H +2O","3H","none"],correct:0,ex:"2 Hydrogen +1 Oxygen"}
+],
+
+"ඉතිහාසය":[
+{q:"ශ්‍රී ලංකාවට බුදු දහම ගෙන ආවේ?",answers:["මහින්ද හිමි","විජය","දුටුගැමුණු","අශෝක"],correct:0,ex:"මහින්ද හිමි"},
+{q:"අනුරාධපුරය කුමක්ද?",answers:["නව නගර","පුරාණ රාජධානිය","ගම්","දූපත"],correct:1,ex:"පුරාණ"},
+{q:"1948 දී සිදු වූයේ?",answers:["යුද්ධය","නිදහස","ගංවතුර","විප්ලව"],correct:1,ex:"නිදහස"},
+{q:"දුටුගැමුණු රජු ප්‍රසිද්ධ වන්නේ?",answers:["යුද්ධ","කලා","ගීත","කෘෂි"],correct:0,ex:"යුද්ධ"},
+{q:"පොලොන්නරුව යුගය පසුව?",answers:["කැන්ඩි","අනුරාධපුර","කොළඹ","යාපනය"],correct:0,ex:"කැන්ඩි"}
+],
+
+"භූගෝල":[
+{q:"ශ්‍රී ලංකාව පිහිටා ඇත්තේ?",answers:["ආසියාව","යුරෝපය","අප්‍රිකාව","ඇමරිකාව"],correct:0,ex:"Asia"},
+{q:"විශාලම මහද්වීපය?",answers:["Africa","Asia","Europe","Australia"],correct:1,ex:"Asia"},
+{q:"වර්ෂාව ඇතිවන්නේ?",answers:["වායු","ජල චක්‍රය","ගිනි","කැටිවීම"],correct:1,ex:"Water cycle"},
+{q:"ගඟක් යනු?",answers:["මුහුද","ජල ධාරාව","කන්ද","වැලි"],correct:1,ex:"River"},
+{q:"පෘථිවිය හැරෙන්නේ?",answers:["වටේ","අක්ෂය වටා","සෘජු","none"],correct:1,ex:"Axis"}
+],
+
+"ඉංග්‍රීසි":[
+{q:"Happy synonym?",answers:["Sad","Joyful","Angry","Cry"],correct:1,ex:"Joyful"},
+{q:"Go (past)?",answers:["Went","Gone","Going","Go"],correct:0,ex:"Went"},
+{q:"Big opposite?",answers:["Small","Tall","Fast","Huge"],correct:0,ex:"Small"},
+{q:"Plural of boy?",answers:["Boys","Boyes","Boies","Boy"],correct:0,ex:"Boys"},
+{q:"Eat (past)?",answers:["Ate","Eat","Eating","Eaten"],correct:0,ex:"Ate"}
+],
+
+"ICT":[
+{q:"CPU යනු?",answers:["Input","Brain","Output","None"],correct:1,ex:"Brain"},
+{q:"Keyboard?",answers:["Input","Output","Storage","None"],correct:0,ex:"Input"},
+{q:"Monitor?",answers:["Input","Output","Storage","None"],correct:1,ex:"Output"},
+{q:"Internet?",answers:["Offline","Online","Manual","None"],correct:1,ex:"Online"},
+{q:"Software?",answers:["Programs","Parts","Food","None"],correct:0,ex:"Programs"}
+],
+
+"සෞඛ්‍ය":[
+{q:"Exercise වැදගත්ද?",answers:["ඔව්","නැහැ","කලක්","None"],correct:0,ex:"Healthy"},
+{q:"දිනකට ජලය?",answers:["2L","5L","10L","None"],correct:0,ex:"2L"},
+{q:"Smoking?",answers:["හොඳ","නරක","None","ok"],correct:1,ex:"Bad"},
+{q:"Sleep?",answers:["වැදගත්","නැහැ","None","Bad"],correct:0,ex:"Important"},
+{q:"Fruit?",answers:["Healthy","Bad","None","Zero"],correct:0,ex:"Healthy"}
+],
+
+"කලා":[
+{q:"Music යනු?",answers:["කලා","ආහාර","ක්‍රීඩා","none"],correct:0,ex:"Art"},
+{q:"Painting?",answers:["කලා","ආහාර","ක්‍රීඩා","none"],correct:0,ex:"Art"},
+{q:"Dance?",answers:["කලා","ආහාර","none","game"],correct:0,ex:"Art"},
+{q:"Drama?",answers:["කලා","Food","Game","None"],correct:0,ex:"Art"},
+{q:"Color?",answers:["Art","Food","Game","None"],correct:0,ex:"Art"}
+],
+
+"නාට්‍ය":[
+{q:"Actor?",answers:["Performer","Driver","Cook","None"],correct:0,ex:"Performer"},
+{q:"Stage?",answers:["Place","Food","Game","None"],correct:0,ex:"Place"},
+{q:"Script?",answers:["Text","Food","Game","None"],correct:0,ex:"Text"},
+{q:"Director?",answers:["Leader","Food","Game","None"],correct:0,ex:"Leader"},
+{q:"Audience?",answers:["Viewers","Food","Game","None"],correct:0,ex:"Viewers"}
+],
+
+"ආගම":[
+{q:"බුදුන් උපන් ස්ථානය?",answers:["ලූම්බිනි","කැන්ඩි","ගාල්ල","None"],correct:0,ex:"Lumbini"},
+{q:"ධර්මය?",answers:["ඉගැන්වීම්","Food","Game","None"],correct:0,ex:"Teaching"},
+{q:"සංඝය?",answers:["භික්ෂූන්","Kids","People","None"],correct:0,ex:"Monks"},
+{q:"බෝධිය?",answers:["ගස","Food","Game","None"],correct:0,ex:"Tree"},
+{q:"Meditation?",answers:["Practice","Food","Game","None"],correct:0,ex:"Practice"}
+]
+
+};
+
+// subject buttons
+let subjectDiv=document.getElementById("subjects");
+for(let sub in data){
+let btn=document.createElement("button");
+btn.innerText=sub;
+btn.onclick=()=>startQuiz(sub);
+subjectDiv.appendChild(btn);
+}
+
+let current=[],i=0,score=0;
+
+function startQuiz(sub){
+current=data[sub];
+i=0;score=0;
+
+document.getElementById("main").innerHTML=`
+<h2>${sub}</h2>
+<h3 id="question"></h3>
+<div id="answers"></div>
+<p id="result"></p>
+<button id="nextBtn" onclick="nextQ()">Next</button>
+`;
+
+loadQ();
+}
+
+function loadQ(){
+document.getElementById("nextBtn").style.display="none";
+document.getElementById("result").innerHTML="";
+
+let q=current[i];
+document.getElementById("question").innerHTML=(i+1)+". "+q.q;
+
+let ansDiv=document.getElementById("answers");
+ansDiv.innerHTML="";
+
+q.answers.forEach((a,index)=>{
+let btn=document.createElement("button");
+btn.innerText=a;
+btn.onclick=()=>check(index);
+ansDiv.appendChild(btn);
+});
+}
+
+function check(ans){
+let q=current[i];
+let res=document.getElementById("result");
+
+if(ans===q.correct){
+score++;
+res.innerHTML="✅ හරි!<br>"+q.ex;
+}else{
+res.innerHTML="❌ වැරදි!<br>✔️ "+q.answers[q.correct]+"<br>"+q.ex;
+}
+
+document.getElementById("nextBtn").style.display="block";
+}
+
+function nextQ(){
+i++;
+if(i<current.length){
+loadQ();
+}else{
+document.getElementById("main").innerHTML=
+`<h2>🎉 අවසන්!</h2>
+<h3>Score: ${score} / ${current.length}</h3>
+<button onclick="location.reload()">🔄 නැවත</button>`;
+}
+}
+
+</script>
+
+</body>
+</html>
